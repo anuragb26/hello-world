@@ -72,6 +72,41 @@ var printFarmInventory = function(cows,chicken,pigs)
 printFarmInventory(3,16,155);
 
 
+var min = function(num1,num2)
+{
+    if(num1<=num2)
+        {
+            return num1;
+        }
+    else
+        {
+            return num2;
+        }
+}
+
+var isEven = function(n)
+{
+    if(n==0)
+        {
+            return true;
+        }
+    else if(n==1)
+        {
+            return false;
+        }
+    else 
+        {
+            return isEven(n-2);
+        }
+}
+
+var countBs = function(content)
+{
+    
+}
+
+
+
 
 
 
