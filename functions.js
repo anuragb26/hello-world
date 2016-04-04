@@ -102,8 +102,31 @@ var isEven = function(n)
 
 var countBs = function(content)
 {
-    
+    var count = 0 ;
+    for(var i =0 ; i < content.length;i++)
+    {
+        if(content.charAt(i)=='B')
+        {
+            count++;
+        }
+    }   
+
+    return count ;
 }
+
+var countChar = function(content,character)
+{
+    var count = 0 ;
+    for(var i = 0 ; i < content.length;i++)
+    {
+        if(content.charAt(i)===character)
+        {
+            count++;
+        }
+    }
+    return count ;
+}
+
 
 
 
