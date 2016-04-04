@@ -97,6 +97,5 @@ function findCorelation(journal,firstEvent,secondEvent)
 var probability = findCorelation(JOURNAL,"peanuts","brushed teeth");
 console.log("Probability variable " + probability);
 
->>>>>>> refs/remotes/origin/eloquentJS
 
 
