@@ -60,3 +60,31 @@ function reverseArrayInPlace(array)
         }
     return array;
 }
+
+
+function arrayToList(array)
+{
+    var list = {};
+    var initialList=list;
+    for(var i = 0 ; i < array.length;i++)
+    {
+        list.value=array[i];
+        list.rest={};
+        list=list.rest;
+    }
+    list.rest=null;
+    return initialList;
+}
+
+function listToArray(listObject)
+{
+    var array = [];
+    while(listObject.rest !== null)
+    {
+        array.push(listObject.value);
+        listObject = listObject.rest;
+    }
+
+    return array;
+}
+
