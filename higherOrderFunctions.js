@@ -80,7 +80,41 @@ function transparentWrapping(utilityFunc)
 transparentWrapping(oddOrEven)([1,2,3]);
 
 var ancestry = JSON.parse(ANCESTRY_FILE); // ancestry is now js object , methods in Object.Prototype can be called on it
-console.log(ancestry.length);
+console.log(Array.isArray(ancestry));
+
+function filter(array,test)
+{
+    var passed = [];
+    for(var i =0;i< array.length;i++)
+    {
+        if(test(array[i]))
+        {
+            passed.push(array[i]);
+        }
+    }
+
+    return passed;
+}
+
+
+
+var x = filter(ancestry,function(person)
+{
+    return person.born > 1900 && person.born < 1925;
+});
+console.log(x);
+
+
+
+console.log(ancestry.filter(function(person){
+   return person.father  =="Carel Haverbeke";
+}));
+
+
+
+
+
+
 
 
 
