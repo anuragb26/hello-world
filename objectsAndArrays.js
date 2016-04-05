@@ -70,6 +70,24 @@ function gatherCorrelations(journal)
         }
     return phis;
 }
+
+function gatherCorrelationsForEach(journal)
+{
+    var phis = {};
+    
+    journal.forEach(function(entry)
+    {
+        entry.events.forEach(function(event)
+        {
+           if(!(event in phis))
+               {
+                   phis[event]=phi(tableFor(event,journal));
+               }
+        });
+    });
+    return phis;
+}
+
 function printCorrelations(correlations)
 {
     for(var event in correlations)
