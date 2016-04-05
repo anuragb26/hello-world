@@ -1,5 +1,13 @@
 /* Exercises for chapter 4 */
 
+/* == compares objects by identity 
+var obj = {x : 1};
+var obj2 = obj1;
+console.log(obj1==obj2) -> true ;
+var obj3= {x : 1};
+console.log(obj1==obj3) -> false;
+*/
+
 function range(start,end,step)
 {
     var array=[];
@@ -131,6 +139,56 @@ function nth(listObject,number)
             return undefined;
         }
     return nth(listObject.rest,number-1);
+}
+
+function isObject(obj)
+{
+    if(typeof obj == "object" && obj!=null)
+        {
+            return true;
+        }
+}
+
+function countProperties(obj)
+{
+    var count = 0 ;
+    for(var props in obj)
+        {
+           count++;
+        }
+    return count;
+}
+
+function deepEqual(obj1,obj2)
+{
+    var isDeepEqual =true;
+    if(isObject(obj1) && isObject(obj2))
+        {
+            if(countProperties(obj1)==countProperties(obj2))
+                {
+                   for(var props in obj1)
+                       {
+                           if(props in obj2 && deepEqual(obj1[props],obj2[props])) // since props is a variable
+                               {
+                                   isDeepEqual =true;
+                               }
+                           else
+                               {
+                                   isDeepEqual=false;
+                                   break;
+                               }
+                       }
+                }
+            else
+                {
+                    isDeepEqual=false;
+                }
+        }
+    else
+        {
+            isDeepEqual=(obj1===obj2);
+        }
+    return isDeepEqual;
 }
 
 
