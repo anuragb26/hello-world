@@ -105,10 +105,21 @@ var x = filter(ancestry,function(person)
 console.log(x);
 
 
+function checkFatherName(person)
+{
+    return person.father == "Carel Haverbeke";
+}
 
 console.log(ancestry.filter(function(person){
    return person.father  =="Carel Haverbeke";
 }));
+
+
+console.log(ancestry.filter(checkFatherName));
+
+
+
+
 
 
 
