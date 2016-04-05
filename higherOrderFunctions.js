@@ -32,6 +32,10 @@ function utilityWithComparison(n,utilityFunc)
 
 function oddOrEven(n)
 {
+    if(Array.isArray(n))
+        {
+            n.forEach(oddOrEven);
+        }
     if(n%2==0)
         {
             console.log(n + " is even ");
@@ -58,6 +62,21 @@ function noisy(f)
     };
 }
 
-
 noisy(Boolean)(0);
+
+function transparentWrapping(utilityFunc)
+{
+    return function()
+    {
+      return utilityFunc.apply(null,arguments);  
+    };
+}
+
+transparentWrapping(oddOrEven)([1,2,3]);
+
+
+
+
+
+
 
