@@ -2,7 +2,7 @@
 Higher order functions 
 
 JSON.stringify -> Takes a js object and returns a json string
-JSON.parse -> Takes a json string and returns  a js object
+JSON.parse -> Takes a json string and returns  a js array of objects
 
 */
 
