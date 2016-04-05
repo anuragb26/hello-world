@@ -88,3 +88,57 @@ function listToArray(listObject)
     return array;
 }
 
+function prepend(number,listObject)
+{
+    var newListObject = {};
+    newListObject.value = number;
+    
+    newListObject.rest = listObject;
+    
+    return newListObject;
+}
+
+function prependCorrect(number,listObject)
+{
+    return {value: number,rest: listObject};
+}
+
+
+function nth(listObject,number)
+{
+    for(var i=0;i<number;i++)
+        {
+            listObject=listObject.rest;
+        }
+    if(listObject.value != null)
+        {
+            return listObject.value;
+        }
+    else
+        {
+            return undefined;
+        }
+}
+
+function nth(listObject,number)
+{
+    if(number==0 && listObject.value !=null)
+        {
+            return listObject.value;
+        }
+    if(number == 0 && listObject.value == null)
+        {
+            return undefined;
+        }
+    return nth(listObject.rest,number-1);
+}
+
+
+
+
+
+
+
+
+
+
