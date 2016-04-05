@@ -1,5 +1,10 @@
 /* Functions that operate on other functions either by taking them as arguments or by returning them are called 
-Higher order functions */
+Higher order functions 
+
+JSON.stringify -> Takes a js object and returns a json string
+JSON.parse -> Takes a json string and returns  a js object
+
+*/
 
 function greaterThanN(n)
 {
@@ -73,6 +78,11 @@ function transparentWrapping(utilityFunc)
 }
 
 transparentWrapping(oddOrEven)([1,2,3]);
+
+var ancestry = JSON.parse(ANCESTRY_FILE); // ancestry is now js object , methods in Object.Prototype can be called on it
+console.log(ancestry.length);
+
+
 
 
 
