@@ -113,12 +113,18 @@ function checkFatherName(person)
 console.log(ancestry.filter(function(person){
    return person.father  =="Carel Haverbeke";
 }));
-
-
 console.log(ancestry.filter(checkFatherName));
 
+function filterAgeGreaterThan90(person)
+{
+    return person.died - person.born  > 90;
+}
+function returnNamesArray(person)
+{ 
+    return person.name;
+}
 
-
+console.log(ancestry.filter(filterAgeGreaterThan90).map(returnNamesArray));
 
 
 
