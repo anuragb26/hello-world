@@ -6,6 +6,12 @@ JSON.parse -> Takes a json string and returns  a js array of objects
 
 */
 
+/* 
+
+apply calls a function with array of arguments whereas bind creates a new function with fixed arguments
+
+*/
+
 function greaterThanN(n)
 {
     return function(m)
@@ -260,8 +266,23 @@ function longLivingAncestors(person)
     return longLiving/all;
 }
 
-console.log(longLivingAncestors(byName["Emile Haverbeke"]))
+console.log(longLivingAncestors(byName["Emile Haverbeke"]));
 
+
+var theSet = ["Carel Haverbeke", "Maria van Brussel",
+              "Donald Duck"];
+
+function isInSet(set,person)
+{
+    return set.indexOf(person.name) > -1;
+}
+
+console.log(ancestry.filter(function(person)
+{
+   return isInSet(theSet,person); 
+}));
+
+console.log(ancestry.filter(isInSet.bind(null,theSet)));
 /*
 x->y->z->q->a
 
