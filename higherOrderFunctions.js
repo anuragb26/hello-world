@@ -25,11 +25,11 @@ function utilityWithComparison(n,utilityFunc)
         utilityFunc(n);
         if(m > n)
             {
-                console.log(m + " is greater than " + n);
+               // console.log(m + " is greater than " + n);
             }
         else
             {
-                console.log(m + " is smaller than " + n);
+                //console.log(m + " is smaller than " + n);
             }
         utilityFunc(m)
     }
@@ -110,12 +110,14 @@ function checkFatherName(person)
     return person.father == "Carel Haverbeke";
 }
 
+
 console.log(ancestry.filter(function(person){
    return person.father  =="Carel Haverbeke";
 }));
+
 console.log(ancestry.filter(checkFatherName));
 
-function filterAgeGreaterThan90(person)
+var filterAgeGreaterThan90 =function(person)
 {
     return person.died - person.born  > 90;
 }
@@ -125,6 +127,147 @@ function returnNamesArray(person)
 }
 
 console.log(ancestry.filter(filterAgeGreaterThan90).map(returnNamesArray));
+
+
+function reduce(array,combine,start)
+{
+    var current = start;
+    for(var i = 0 ; i < array.length;i++)
+        {
+            current =  combine(current,array[i]);
+        }
+    return current;
+}
+
+console.log(reduce([1,2,3,4,5],function(a,b){return a+b;},0));
+
+var oldestAncestor = function(min,cur)
+{
+    if(cur.born < min.born)
+        {
+            return cur;
+        }
+    else
+        {
+            return min;
+        }
+}
+console.log(ancestry.reduce(oldestAncestor));
+
+// the average age for men and for women  in the data set
+
+
+var filterMale = function(person)
+{
+    return person.sex=="m";
+}
+
+var filterFemale=function(person)
+{
+    return person.sex == "f";
+}
+
+var age = function(person)
+{
+    return person.died - person.born;
+}
+var average =function(array)
+{
+    function plus(a,b)
+    {
+        return a+b;
+    }
+    return array.reduce(plus)/array.length;
+}
+console.log(average(ancestry.filter(filterMale).map(age)));
+
+var byName = {};
+function createObjectByName(person)
+{
+    byName[person.name] =person;
+}
+ancestry.forEach(createObjectByName); // create object which has objects
+function mapObjectsByName(person)
+{
+    var obj = {};
+    obj[person.name]=person;
+    return obj;
+}
+var mapByName = ancestry.map(mapObjectsByName);  // return array of object;
+console.log(byName);
+
+function reduceAncestors(person,f,defaultValue)
+{
+    function valueFor(person)
+    {
+        if(person == null)
+            {
+              //  console.log("in default value");
+                return defaultValue;
+            }
+        else
+            {
+              //  console.log("in else for "+ person.name);
+              //  console.log("will search for " + person.father);
+              //  console.log("will search for " + person.mother);
+                return f(person,valueFor(byName[person.mother]),valueFor(byName[person.father]));
+            }
+    }
+    return valueFor(person);
+}
+
+function sharedDNA(person,fromMother,fromFather)
+{
+   
+    if(person.name == "Pauwels van Haverbeke")
+        {
+            // console.log("in sharedDNA  return one for " + person.name);
+            return 1 ;
+        }
+    else
+        {
+            // console.log("in sharedDNA sum object for " + person.name+ " with value " + (fromMother + fromFather)/2);
+            return (fromMother + fromFather)/2;
+        }
+}
+
+var ph = byName["Philibert Haverbeke"];
+//console.log(ph);
+console.log(reduceAncestors(ph,sharedDNA,0)/4);
+
+
+/*
+x->y->z->q->a
+
+e->r->y->b
+
+t->z->a   
+
+everyPerson who exists call sharedDna on it..
+if person.name == "correct" then dna sharing is 1
+else dnasharing is halfOf 
+1/2
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
