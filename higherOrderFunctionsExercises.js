@@ -13,6 +13,13 @@ var ancestors = JSON.parse(ANCESTRY_FILE);
 
 console.log(ancestors.length);
 
+var objectsByNameKey = {};
+var getObjectsByNameKey = function(person)
+{
+		objectsByNameKey[name]=person;
+}
+
+ancestors.forEach(getObjectsByNameKey); 
 
 
 
