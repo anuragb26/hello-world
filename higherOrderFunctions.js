@@ -236,6 +236,32 @@ var ph = byName["Philibert Haverbeke"];
 console.log(reduceAncestors(ph,sharedDNA,0)/4);
 
 
+function countAncestors(person,test)
+{
+    function combine(current,fromMother,fromFather)
+    {
+        var thisOneCounts = current!=person && test(current);
+        return fromMother + fromFather + (thisOneCounts?1:0);
+    }
+    
+    return reduceAncestors(person,combine,0); // combine is passed to reduceAncestors but is has access to person variable (inner function has access to outer variable)
+    
+}
+
+function longLivingAncestors(person)
+{
+    var all = countAncestors(person,function(person){
+        return true;
+    });
+    
+    var longLiving = countAncestors(person,function(person){
+        return (person.died - person.born) >= 70;
+    })
+    return longLiving/all;
+}
+
+console.log(longLivingAncestors(byName["Emile Haverbeke"]))
+
 /*
 x->y->z->q->a
 
