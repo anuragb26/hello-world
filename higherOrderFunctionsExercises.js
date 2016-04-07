@@ -16,10 +16,92 @@ console.log(ancestors.length);
 var objectsByNameKey = {};
 var getObjectsByNameKey = function(person)
 {
-		objectsByNameKey[name]=person;
+		objectsByNameKey[person.name]=person;
 }
 
 ancestors.forEach(getObjectsByNameKey); 
+
+var validPerson = 0 ;
+
+function average(array)
+{
+    function plus(a,b)
+    {
+        return a+b;
+    }
+    
+    return array.reduce(plus)/array.length;
+}
+
+var getAgeDifferenceArray = function(person)
+{
+        return person.born - objectsByNameKey[person.mother].born ;
+}
+
+var filterByMotherNameExistsInDataSet = function(person)
+{
+    return objectsByNameKey[person.mother] !=null;   
+}
+
+var ageDifferenceArray=ancestors.filter(filterByMotherNameExistsInDataSet).map(getAgeDifferenceArray);
+console.log(average(ageDifferenceArray));
+
+var objectsByCentury = {};
+var groupPersonsByCentury = function(person)
+{
+    var century = Math.ceil(person.died/100);
+    if(century in objectsByCentury)
+        {
+            objectsByCentury[century].push(person.died -person.born);
+        }
+    else
+        {
+            objectsByCentury[century]=[];
+            objectsByCentury[century].push(person.died -person.born);
+        }
+}
+ancestors.forEach(groupPersonsByCentury);
+
+var getAgeOfPerson = function(person)
+{
+    return person.died - person.born;
+}
+var printAverageAgeByCentury = function(groupedObject)
+{
+    for(century in groupedObject)
+        {
+            console.log(century + " - " +average(groupedObject[century].map(getAgeOfPerson)));
+        }
+}
+
+var genericGroupBy = function(array,groupByFunc)
+{
+    var groupByObject={};
+    array.forEach(function(element)    /* Decision whether to write the callback anonymously or make a seperate function call */
+    {
+        groupByKey = groupByFunc(element);
+        if(groupByKey in groupByObject)
+            {
+                groupByObject[groupByKey].push(element);
+            }
+            else
+            {
+                groupByObject[groupByKey]=[];
+                groupByObject[groupByKey].push(element);
+            }   
+    });
+    return groupByObject;
+}
+
+var logicForCenturyGroups = function(element)
+{
+    return Math.ceil(element.died/100);
+}
+
+var groupedObject = genericGroupBy(ancestors,logicForCenturyGroups);
+console.log(printAverageAgeByCentury(groupedObject));
+
+
 
 
 
