@@ -102,6 +102,83 @@ var groupedObject = genericGroupBy(ancestors,logicForCenturyGroups);
 console.log(printAverageAgeByCentury(groupedObject));
 
 
+/* Sometimes good old for loops are better
+var every = function(array,func)
+{
+    var count = 0;
+    array.forEach(function(element)
+    {
+            if(func(element) == true)
+                {
+                    count++;
+                }
+    });
+    return count == array.length;
+}
+
+var some = function(array,func)
+{
+    var returnValue = false;
+    array.forEach(function(element)
+    {
+        if(!func(element) && !returnValue)
+            {
+                returnValue=true;;
+            }
+        
+    });
+    return returnValue;
+}
+
+*/
+
+var every = function(array,predicate)
+{
+    for(var i = 0 ; i < array.length;i++)
+        {
+            if(!predicate(array[i]))
+                {
+                    return false; // you can return out of a for loop 
+                }
+        }
+    return true;
+}
+
+var some = function(array,predicate)
+{
+    for(var i = 0 ; i < array.length ; i++)
+        {
+            if(predicate(array[i]))
+                {
+                    return true;
+                }
+        }
+    return false;
+}
+console.log(every([NaN, NaN, NaN], isNaN));
+// → true
+console.log(every([NaN, NaN, 4], isNaN));
+// → false
+console.log(some([NaN, 3, 4], isNaN));
+// → true
+console.log(some([2, 3, 4], isNaN));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
