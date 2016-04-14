@@ -8,7 +8,7 @@ def reverseWord(word,start,end):
     
 
     
-
+#Manual Reverse Sentence --> not to be used
 def reverseSentence(sent):
     wordStart=-1
     wordEnd=-1
@@ -37,6 +37,13 @@ def reverseSentence(sent):
     return reverseWord(reversedSentence,0,length)
 
 print(reverseSentence("abc def   ghi"))
+
+
+def reverseSentenceSecond(s):
+    reverseSentence = ""
+    for i in s:
+        if
+    
 
 
 
