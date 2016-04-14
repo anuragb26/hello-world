@@ -36,14 +36,51 @@ def reverseSentence(sent):
        
     return reverseWord(reversedSentence,0,length)
 
-print(reverseSentence("abc def   ghi"))
-
 
 def reverseSentenceSecond(s):
-    reverseSentence = ""
-    for i in s:
-        if
-    
+	reverseSentence=" ".join(reversed(s.split()))
+	return reverseSentence
+
+def reverseSentenceThird(s):
+	reverseSentence=" ".join(s.split()[::-1])
+	return reverseSentence
+
+def reverseSentenceFourth(s):
+	reverseSentence=''
+	temp=''
+	for i in s:
+		if(i!= ' '):
+			temp=temp +i
+		else:
+			reverseSentence=temp + " " + reverseSentence
+			temp=''
+	reverseSentence=temp + ' ' + reverseSentence
+	return reverseSentence
+
+def reverseSentenceFifth(s):
+	wordList=[]
+	wordStart=''
+	i=0
+	length=len(s)
+	while(i < length):
+		if(s[i] != ' '):
+			wordStart=i
+			while(i < length and s[i] != ' '):
+				i+=1
+			wordList.append(s[wordStart:i])
+		i+=1	
+
+	return " ".join(reversed(wordList))
+
+
+
+
+ 
+print(reverseSentence("abc def   ghi"))
+print(reverseSentenceSecond("abc def   ghi"))
+print(reverseSentenceThird("abc def   ghi"))
+print(reverseSentenceFourth("  abc def   ghi  "))
+print(reverseSentenceFifth("  abc def   ghi  "))    
 
 
 
