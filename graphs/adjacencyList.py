@@ -2,7 +2,9 @@ class Vertex:
 	def __init__(self,id):
 		self.id=id
 		self.connectedTo={}
-
+		self.distance=0
+		self.pred=None
+		self.color='white'
 	def addNeighbor(self,nbr,weight=0):
 		self.connectedTo[nbr]=weight
 
@@ -11,6 +13,24 @@ class Vertex:
 
 	def getId(self):
 		return self.id
+
+	def setColor(self,color):
+		self.color=color
+
+	def setPred(self,pred):
+		self.pred = pred
+
+	def setDistance(self,d):
+		self.distance=d
+
+	def getColor(self):
+		return self.color
+
+	def getPred(self):
+		return self.pred
+
+	def getDistance(self):
+		return self.distance
 
 	def __str__(self):
 		return str(self.id) + " connected to " + str([x.id for x in self.connectedTo])
@@ -21,9 +41,7 @@ class Vertex:
 	def getConnections(self):
 		return  self.connectedTo.keys()
 
-v1 = Vertex("a")
-v2= Vertex("b")
-v3=Vertex("c")
+
 
 class Graph:
 	def __init__(self):
@@ -38,34 +56,42 @@ class Graph:
 
 	def addEdge(self,f,t,cost=0):
 		if(f not in self.vertList):
-			nv=addVertex(f)
+			nv=self.addVertex(f)
 		if(t not in  self.vertList):
-			nv=addVertex(t)
+			nv=self.addVertex(t)
 		self.vertList[f].addNeighbor(self.vertList[t])
 
 	def getVertices(self):
 		return self.vertList.keys()
 	
+	def getVertex(self,n):
+		if n in self.vertList:
+			return self.vertList[n]
+		else:
+			return None
+
 	def __contains__(self,n):
 		return n in self.vertList		
 
+	def __str__(self):
+		return str(self.vertList)
 
-	def __iter__(self):
-		return iter(self.vertList.values())
+  
+if __name__ == "__main__":
 
+	v1 = Vertex("a")
+	v2= Vertex("b")
+	v3=Vertex("c")
+	g = Graph()
 
-g = Graph()
+	for i in range(6):
+		g.addVertex(i)
+	g.addEdge(0,2,10)
 
-for i in range(6):
-	g.addVertex(i)
+	print (g.getVertices())
 
-g.addEdge(0,2,10)
-
-print (g.getVertices())
-
-
-for vertex in g:
-	print (str(vertex) +" \n")
+	for vertex in g:
+		print (str(vertex) +" \n")
 
 
 
