@@ -1,10 +1,16 @@
+import collections
+
+
 class Vertex:
 	def __init__(self,id):
 		self.id=id
-		self.connectedTo={}
+		self.connectedTo=collections.OrderedDict()
 		self.distance=0
 		self.pred=None
 		self.color='white'
+		self.disc=0
+		self.finish=0
+
 	def addNeighbor(self,nbr,weight=0):
 		self.connectedTo[nbr]=weight
 
@@ -32,6 +38,18 @@ class Vertex:
 	def getDistance(self):
 		return self.distance
 
+	def getDiscovery(self):
+		return self.disc
+
+	def setDiscovery(self,disc):
+		self.disc=disc
+
+	def getFinish(self)	:
+		return self.finish
+
+	def setFinish(self,fin)	:
+		self.finish=fin
+
 	def __str__(self):
 		return str(self.id) + " connected to " + str([x.id for x in self.connectedTo])
 
@@ -46,7 +64,7 @@ class Vertex:
 class Graph:
 	def __init__(self):
 		self.numOfVertices=0
-		self.vertList={}
+		self.vertList=collections.OrderedDict()
 
 	def addVertex(self,key):
 		self.numOfVertices+=1
@@ -75,6 +93,11 @@ class Graph:
 
 	def __str__(self):
 		return str(self.vertList)
+
+	def __iter__(self):
+		return iter(self.vertList.values())
+
+
 
   
 if __name__ == "__main__":
