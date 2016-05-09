@@ -19,12 +19,6 @@ var server = http.createServer(function (request,response)
             
         }
     
-    /*
-    if(request.method == 'POST')
-        {
-            request.pipe(mapStream(mapStreamLogic(data))).toUpperCase();
-        }
-    */
 });
 
 server.listen(Number(process.argv[2]));
