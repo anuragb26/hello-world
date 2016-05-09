@@ -1,6 +1,6 @@
 var http=require('http');
 
-http.get(process.argv[2],function (response)
+http.get(process.argv[2],function (request)
 {
     response.setEncoding('utf8');
     /*
@@ -9,6 +9,6 @@ http.get(process.argv[2],function (response)
         console.log(data);
     })
     */
-    response.on('data',console.log);
+    request.on('data',console.log);
 });
 
