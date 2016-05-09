@@ -1,0 +1,54 @@
+function ajaxWrapper(callBack)
+{
+    1st way ->
+    sucess:function(response)
+    {
+        // do something with the response
+        filteredResponse= filter(response)
+        callBack(filteredResponse)
+    }
+    2nd way ->
+    success:callBack  // since success basically returns a function with one argument
+    
+}
+
+
+var ajaxCall = ajaxWrapper(function(result){});
+
+    OR
+    
+var resultHandler = function(result)
+{
+
+}
+
+
+var ajaxCall = ajaxWrapper(resultHandler)
+
+
+var outerScopeVar;
+
+var img = document.createElement('img');
+img.onload = function() {
+    outerScopeVar = this.width;
+};
+alert(outerScopeVar);
+
+
+asyncWrapper(function(result){
+alert(result);
+})
+
+
+function asyncWrapper(callBack)
+{
+    var img = document.createElement('img');
+    img.onload = function() 
+    {
+        outerScopeVar = this.width;
+         callBack(outerScopeVar);
+    };
+    img.src = 'lolcat.png';
+   
+
+}
