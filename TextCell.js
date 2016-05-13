@@ -60,6 +60,25 @@ UnderlineCell.prototype.draw = function(width,height)
 	return this.inner.draw(width,height-1).concat([pad("-",width)]);
 }
 
+function RTextCell(text)
+{
+    TextCell.call(this,text);
+}
+
+RTextCell.prototype = Object.create(TextCell.prototype);
+
+RTextCell.prototype.draw = function(width,height)
+{
+    var result = [];
+    for(i=0;i<height;i++)
+        {
+            var line = this.text[i] || "";
+            result.push(pad("",width - line.length) + line);
+        }
+    return result;
+}
+
+
 function minHeight(rows)
 {
 	return rows.map(function(row)
@@ -127,7 +146,15 @@ function dataTable(data)
 	{
 		return keys.map(function(key)
 		{
-			return new TextCell(String(dataObject[key]));
+            var value = dataObject[key];
+            if(typeof value == "number")
+                {
+                    return new RTextCell(String(value));
+                }
+            else
+                {
+                    return new TextCell(String(value));   
+                }
 		});
 	});
 
