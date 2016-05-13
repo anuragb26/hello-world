@@ -32,7 +32,7 @@ TextCell.prototype.minHeight = function()
 TextCell.prototype.draw = function(width,height)
 {
 	var result=[];
-	for(i=0;i<height;i++)
+	for(var i= 0;i<height;i++)
 	{
 		var line = this.text[i] || "";
 		result.push(line + pad(" ",width - line.length));

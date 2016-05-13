@@ -32,5 +32,5 @@ for(i = 0 ;i < 5;i++)
 	}
 	rows.push(row);
 }
-//console.log(dataTable(MOUNTAINS));
+
 console.log(drawTable(dataTable(MOUNTAINS)));
