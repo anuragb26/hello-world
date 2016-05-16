@@ -116,9 +116,106 @@ Dog.prototype.makeNoise = function()
 }
 
 
-d = new Dog();
+//d = new Dog();
 
-console.log(d.makeNoise());
+//console.log(d.makeNoise());
+
+
+function ArraySeq(sequence)
+{
+    this.sequence = sequence;
+    this.pos = -1;
+}
+
+ArraySeq.prototype.next =function()
+{
+    if(this.pos + 1 < this.sequence.length)
+        {
+            this.pos++;
+            return true;
+        }
+    else
+        {
+            return false;
+        }
+}
+
+
+ArraySeq.prototype.current = function()
+{
+    return this.sequence[this.pos];
+}
+
+
+
+function RangeSeq(from,to)
+{
+    this.end = to;
+    this.pos = from - 1;
+}
+
+RangeSeq.prototype.next = function()
+{
+    if(this.pos >= this.end)
+        {
+            return false;
+        }
+    else
+        {
+            this.pos++;
+            return true;
+        }
+}
+
+
+RangeSeq.prototype.current = function()
+{
+    return this.pos;
+}
+
+
+
+function logFive(sequenceObj)
+{
+    for(var i=0;i<5;i++)
+        {
+            if(sequenceObj.next())
+                {
+                    console.log(sequenceObj.current());
+                }
+        }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+logFive(new ArraySeq([1, 2]));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
