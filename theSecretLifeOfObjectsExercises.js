@@ -73,6 +73,52 @@ console.log(sc.minHeight());
 console.log(sc.draw(3,2));
 
 
+function Animal()
+{
+    this.name  = "Animal"
+    
+    this.toString = function()
+    {
+        console.log("To string for " + this.name);
+    }
+}
+
+Animal.prototype.noise = "aaaa";
+
+Animal.prototype.makeNoise = function()
+{
+    console.log(this.name + " making noise " + this.noise);
+}
+
+
+
+function Dog()
+{
+    this.name = "Dog";
+    
+    this.toString = function()
+    {
+        console.log("To string for " + this.name);
+    }
+}
+
+
+Dog.prototype = Object.create(Animal.prototype);
+//Dog.prototype = new Animal();
+
+Dog.prototype.noise = "bbbbb";
+
+
+Dog.prototype.makeNoise = function()
+{
+    console.log(this.name  + " making noise " + this.noise);
+    Animal.prototype.makeNoise();
+}
+
+
+d = new Dog();
+
+console.log(d.makeNoise());
 
 
 
