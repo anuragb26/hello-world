@@ -2,10 +2,15 @@
 
 
 
-def printRecursiveList(aList):
+def printRecursiveList(aList,level):
 	"""This function accepts a list as an argument and print the contents of list one by one"""
 	if(not isinstance(aList,list)):
+		for l in range(level):
+			print("\t ".str(l),end='')
 		print(aList)
 	else:
 		for eachItem in aList:
-			printRecursiveList(eachItem)
+			printRecursiveList(eachItem,level+1)
+
+
+
