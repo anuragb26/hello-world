@@ -5,4 +5,10 @@ movies = ["The Holy Grail", 1975, "Terry Jones & Terry Gilliam", 91,
 "Terry Gilliam", "Eric Idle", "Terry Jones"]]]
 
 
-abNester.printRecursiveList(movies,0)
+names = ['John', 'Eric', ['Cleese', 'Idle'], 'Michael', ['Palin']]
+
+abNester.printRecursiveList(movies)
+abNester.printRecursiveList(movies,True,0)
+abNester.printRecursiveList(movies,True,4)
+
+abNester.printRecursiveList(names)
