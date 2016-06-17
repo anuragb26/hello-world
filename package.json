@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/anuragb26/hello-world#readme",
   "dependencies": {
-    "underscore": "^1.5.0"
+    "underscore": "^1.8.3"
   }
 }
