@@ -1,16 +1,16 @@
 var http = require('http');
 var content="";
-http.get(process.argv[2],function(request)
+http.get(process.argv[2],function(response)
 {
-    request.setEncoding('utf8');
-    request.on('data',function(data)
+    response.setEncoding('utf8');
+    response.on('data',function(data)
     {
         content+=data;
     });
-    request.on('end',function()
+    response.on('end',function()
     {
         console.log(content.length);
-        console.log(content);
+     //   console.log(content);
         
     });
     

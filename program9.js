@@ -22,9 +22,9 @@ var printData = function(testingFunc)
         }
 }
 /*
-http.get(process.argv[2],function(request)
+http.get(process.argv[2 + index],function(response)
 {
-    request.pipe(bl function(err,data)
+    response.pipe(bl function(err,data)
     {
         serverContents.first=data.toString();
         serverLength+=1;
@@ -34,15 +34,15 @@ http.get(process.argv[2],function(request)
     
 });
 */
-http.get(process.argv[2],function(request)
+http.get(process.argv[2],function(response)
 {
-    request.setEncoding('utf8');
-    request.on('data',function(data)
+    response.setEncoding('utf8');
+    response.on('data',function(data)
     {
         firstServerData+=data;
         
     });
-    request.on('end',function()
+    response.on('end',function()
     {
         //serverContents.push(secondServerData);
         serverContents.first=firstServerData;
@@ -53,15 +53,15 @@ http.get(process.argv[2],function(request)
     
 });
 
-http.get(process.argv[3],function(request)
+http.get(process.argv[3],function(response)
 {
-    request.setEncoding('utf8');
-    request.on('data',function(data)
+    response.setEncoding('utf8');
+    response.on('data',function(data)
     {
         secondServerData+=data;
         
     });
-    request.on('end',function()
+    response.on('end',function()
     {
         //serverContents.push(secondServerData);
         serverContents.second=secondServerData;
@@ -72,15 +72,15 @@ http.get(process.argv[3],function(request)
     
 });
 
-http.get(process.argv[4],function(request)
+http.get(process.argv[4],function(response)
 {
-    request.setEncoding('utf8');
+    response.setEncoding('utf8');
     
-    request.on('data',function(data)
+    response.on('data',function(data)
     {
        thirdServerData+=data; 
     });
-    request.on('end',function()
+    response.on('end',function()
     {
         //thirdServerData.push(thirdServerData);
         serverContents.third=thirdServerData;
