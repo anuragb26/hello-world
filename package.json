@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/anuragb26/hello-world#readme",
   "dependencies": {
+    "mysql": "^2.11.1",
     "underscore": "^1.8.3"
   }
 }
