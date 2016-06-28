@@ -36,13 +36,18 @@ con.query(queryString,
 	}
 		console.log(rows);
 
-})
+});
 
-
-
-
-
-
+/*
+con.query(queryString).then(
+		function(record)
+		{
+			console.log(record);
+		}).catch(function(err)
+		{
+			console.log(err);
+		});
+*/
 con.end(function(err)
 	{
 

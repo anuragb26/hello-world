@@ -19,6 +19,7 @@
   "homepage": "https://github.com/anuragb26/hello-world#readme",
   "dependencies": {
     "mysql": "^2.11.1",
+    "promise-mysql": "^1.3.2",
     "underscore": "^1.8.3"
   }
 }
