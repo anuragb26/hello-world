@@ -1,7 +1,9 @@
 module.exports.dbConfig =
 {
-    host:"127.0.0.1",
+    host:"localhost",
     user:"root",
-    password:"",
-    database:"vt_service"
+    password:"root123",
+    database:"openx"
 }
+
+module.exports.webPort = 8080;

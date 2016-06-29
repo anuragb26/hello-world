@@ -1,5 +1,6 @@
 var mysql = require("promise-mysql");
 var settings = require("../settings");
+var connection;
 
 /*
 
@@ -36,25 +37,21 @@ module.exports.executeQuery = function(queryString,callback)
 
 module.exports.executeQuery = function(queryString,callback)
 {
-    var conn = mysql.createConnection(settings.dbConfig);
-
-    conn.connect().
-        then(function()
+    mysql.createConnection(settings.dbConfig).then(function(conn)
+    {
+        conn.query(queryString).
+        then(function(data)
         {
-            conn.query(queryString).
-                then(function()
-                {
-                    callback(data);
-                }).catch(function(err)
-                {
-                    console.log(err);
-                    callback(null,err);
-                });
-        }).
-        catch(function(err)
+            callback(data);
+        }).catch(function(err)
         {
             console.log(err);
             callback(null,err);
         });
+    }).catch(function(err)
+    {
+        console.log(err);
+        callback(null,err);
+    })
 };
 
