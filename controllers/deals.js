@@ -6,13 +6,11 @@ module.exports.getAllDeals = function(request,response)
     {
         if(err)
         {
-            console.log("writing error in controller ");
             response.writeHead(500," Internal Server occurred ",{"Content-Type" : "text/html"});
             response.write("<html><head><title>500</title></head><body>500: Internal Error Details: " + err + "</body></html>");
         }
         else
         {
-            console.log("writing data in controller ");
             response.writeHead(200,{"Content-Type" : "application/json"});
             response.write(JSON.stringify(data));
         }

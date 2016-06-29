@@ -14,7 +14,6 @@ http.createServer(function(request,response)
                     }
                 else if(request.url == "/deals")
                     {
-                        console.log(request.url);
                         deals.getAllDeals(request,response);       
                     }
                 break;
