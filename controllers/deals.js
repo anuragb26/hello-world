@@ -1,4 +1,5 @@
 var db = require("../core/db");
+var httpMsgs = require("../core/httpMsgs");
 
 module.exports.getAllDeals = function(request,response)
 {
@@ -6,15 +7,12 @@ module.exports.getAllDeals = function(request,response)
     {
         if(err)
         {
-            response.writeHead(500," Internal Server occurred ",{"Content-Type" : "text/html"});
-            response.write("<html><head><title>500</title></head><body>500: Internal Error Details: " + err + "</body></html>");
+            httpMsgs.sendError(request,response,err);
         }
         else
         {
-            response.writeHead(200,{"Content-Type" : "application/json"});
-            response.write(JSON.stringify(data));
+            httpMsgs.sendData(request,response,data);
         }
-
         response.end();
     });
 };
