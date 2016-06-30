@@ -7,7 +7,7 @@ http.createServer(function(request,response)
 {
     switch(request.method)
         {
-            case "GET":
+            case "POST":
                 if (request.url == "/")
                     {
                         httpMsgs.sendInfo(request,response);
@@ -33,11 +33,8 @@ http.createServer(function(request,response)
                         }   
                     }
                 break;
-            case "POST":
-                break;
-            case "DELETE":
-                break;
-            case "PUT":
+            default:
+                httpMsgs.sendPageNotFoundError(request,response);
                 break;
         }
     
