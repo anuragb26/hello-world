@@ -7,18 +7,30 @@ module.exports.getAllDeals = function(request,response)
     {
         if(err)
         {
-            httpMsgs.sendError(request,response,err);
+            httpMsgs.sendInternalServeError(request,response,err);
         }
         else
         {
             httpMsgs.sendData(request,response,data);
         }
-        response.end();
     });
 };
 
-module.exports.get = function(request,response,empno)
+module.exports.getDeal = function(request,response,dealId)
 {
+    db.executeQuery(" SELECT * FROM f_rtb_dealids where rtb_dealid_id = '" + dealId + "'",function(data,err)
+    {
+        if(err)
+        {
+            httpMsgs.sendInternalServeError(request,response,err);
+        }
+        else
+        {
+            httpMsgs.sendData(request,response,data);
+        }
+    });
+    
+    
 };
 
 module.exports.add = function(request,response,requestBody)
