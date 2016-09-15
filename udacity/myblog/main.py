@@ -14,12 +14,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+form='''
+<form action = "/testForm">
+    <input name = "q">
+    <input type="submit">
+</form>
+'''
 import webapp2
 
+class TestForm(webapp2.RequestHandler):
+    def get(self):
+        q=self.request.get("q")
+        self.response.headers['Content-type']='text/html'
+        s="You entered "+ str(q)
+        self.response.out.write(s)
+        
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello Udacity!')
+        self.response.headers['Content-type']='text/html'
+        self.response.out.write(form)
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/testForm',TestForm)
 ], debug=True)
