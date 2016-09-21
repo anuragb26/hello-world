@@ -29,11 +29,9 @@ form = '''
                         Username
                         </td>
                         <td>
-                            <input type="text" name="username" value="">
+                            <input type="text" name="username" value="{userName}">
                         </td>
-                        <td style="color:red;">
-
-                        </td>
+                        <td style="color:red;">{userNameErr}</td>
                 </tr>
 
                 <tr>
@@ -41,11 +39,9 @@ form = '''
                         Password
                       </td>
                       <td>
-                        <input type="password" name="password" value="">
+                        <input type="password" name="password" value="{password}">
                       </td>
-                      <td style="color:red;">
-
-                      </td>
+                      <td style="color:red;">{password2Err}</td>
                 </tr>
 
                 <tr>
@@ -53,11 +49,9 @@ form = '''
                         Verify Password
                       </td>
                       <td>
-                        <input type="password" name="verify" value="">
+                        <input type="password" name="verify" value="{verify}">
                       </td>
-                      <td style="color:red;">
-
-                      </td>
+                      <td style="color:red;">{password1Err}</td>
                 </tr>
 
                 <tr>
@@ -65,11 +59,9 @@ form = '''
                         Email (optional)
                       </td>
                       <td>
-                        <input type="text" name="email" value="">
+                        <input type="text" name="email" value="{email}">
                       </td>
-                      <td style="color:red;">
-
-                      </td>
+                      <td style="color:red;">{emailErr}</td>
                 </tr>
                 </tbody>
             </table>
@@ -81,27 +73,29 @@ welcomeMarkup = '''
               <h2>Welcome, {0}!</h2>  
               '''
 class MainHandler(webapp2.RequestHandler):
-    def writeHtml(self,markup,errorInfo):
-        self.response.out.write(markup)
-    def verifyFormData(formData):
+    def writeHtml(self,markup,formData):
+        self.response.out.write(markup.format(**formData))
+    def verifyFormData(self,formData):
         errorInfo={
-                    'userName':"",
-                    'password1':"",
-                    'password2':"",
-                    'email':""
+                    'userNameErr':"",
+                    'password1Err':"",
+                    'password2Err':"",
+                    'emailErr':""
                   }
-        userName=re.compile('r"^[a-zA-Z0-9_-]{3,20}$"')
-        password=re.compile('r"^.{3,20}$')
-        email=re.compile('r^[\S]+@[\S]+.[\S]+$')
-        if not userName.match(formData['userName']):
-            errorInfo['userNameErr']="That's not a valid username"
-        if not formData['password']:
-            if(not (password.match(formData['password']) or formData['password']== formData['verify'])):
-                errorInfo['password1Err']="Your passwords didn't match."
+        userName=re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
+        password=re.compile(r"^.{3,20}$")
+        email=re.compile(r"^[\S]+@[\S]+.[\S]+$")
+        if userName.match(formData['userName']) is  None:
+        	self.response.out.write(str(userName.match(formData['userName'])))
+        	errorInfo['userNameErr']="That's not a valid username"
+        if password.match(formData['password']) is not None:
+        	if formData['password'] != formData['verify']:
+        		errorInfo['password1Err']="Your passwords didn't match."
         else:
-            errorInfo['password2Err']="That wasn't a valid password."
-        if formData['email'] and not(email.match(formData['email'])):
-               errorInfo['emailErr']="That's not a valid email."
+        	errorInfo['password2Err']="That wasn't a valid password."
+        if formData['email'] != '': 
+        	if email.match(formData['email']) is None:
+        		errorInfo['emailErr']="That's not a valid email."
         return errorInfo
     def get(self):
         errorInfo={
@@ -116,18 +110,20 @@ class MainHandler(webapp2.RequestHandler):
                     'verify':"",
                     'email':""
                   } 
-        self.writeHtml(form,formData,errorInfo)
+        formData.update(errorInfo)
+        self.writeHtml(form,formData)
     def post(self):
         formData={}
         formData['userName']=self.request.get('username')
         formData['password']=self.request.get('password')
         formData['verify']=self.request.get('verify')
         formData['email']=self.request.get('email')
-        errorInfo=verifyFormData(formData)
-        if(errorInfo['password1']):
-            formData['password']=""
-            formData['verify']=""
-            self.writeHtml(form,formData,errorInfo)
+        errorInfo=self.verifyFormData(formData)
+        if(any(errorInfo.values())):
+       		formData['password']=""
+        	formData['verify']=""
+        	formData.update(errorInfo)
+        	self.writeHtml(form,formData)
         else:
             queryParam={"username":formData['userName']}
             url="/welcome?"+urllib.urlencode(queryParam)
