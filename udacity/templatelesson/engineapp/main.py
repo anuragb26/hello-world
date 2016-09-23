@@ -33,7 +33,10 @@ class Handler(webapp2.RequestHandler):
 
 class MainHandler(Handler):
     def get(self):
-        self.render('shoppingList.html',name=self.request.get('food'))
+        n=self.request.get('n')
+        if n:
+            n=int(n)
+        self.render('shoppingList.html',n=n)
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
 ], debug=True)
