@@ -4,19 +4,14 @@ arr=[10,9,8,7,6,5,4,3,2,1]
 def minHeapify(arr,l,heapIndex):
 	lChildIndex=heapIndex*2 +1
 	rChildIndex=heapIndex*2 +2
-	#print ("lChildIndex {0} and rChildIndex {1} and  heapIndex {2}".format(lChildIndex,rChildIndex,heapIndex))
-	#if(lChildIndex <=l and rChildIndex <=l):
-		#print ("lChildIndexVal {0} and rChildIndexVal {1} and  heapIndexVal {2}".format(arr[lChildIndex],arr[rChildIndex],arr[heapIndex]))
 	if(lChildIndex <=l and arr[lChildIndex] < arr[heapIndex]):
 		smallest=lChildIndex
 	else:
 		smallest=heapIndex
 	if(rChildIndex <=l and arr[rChildIndex] < arr[smallest]):
 		smallest=rChildIndex
-	#print("smallest index {0} and value {1} ".format(smallest,arr[smallest]))
 	if(smallest != heapIndex):
 		arr[smallest],arr[heapIndex]=arr[heapIndex],arr[smallest]
-		#print("array after exchange {0}".format(arr))
 		minHeapify(arr,l,smallest)
 
 def maxHeap(arr,l,heapIndex):
