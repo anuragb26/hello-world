@@ -57,13 +57,13 @@ def buildMenu(names,values,calories):
 
 def maxVal(items,avail):
 	if(items==[] or avail <=0):
-		print ("In blank")
+		#print ("In blank")
 		result=(0,())
 	elif(items[0].getCost() > avail):
-		print("In higher Cost for {}".format(items[0]))
+		#print("In higher Cost for {}".format(items[0]))
 		result=maxVal(items[1:],avail)
 	else:
-		print("In choosin for {}".format(items[0]))
+		#print("In choosin for {}".format(items[0]))
 		chosenOne=items[0]
 		#take the first item
 		withVal,valToTake=maxVal(items[1:],avail-chosenOne.getCost())
@@ -72,18 +72,44 @@ def maxVal(items,avail):
 		withoutVal,valNotTaken=maxVal(items[1:],avail)
 		#choose the better option
 		if withVal> withoutVal:
-			print ("choosing {}".format(items[0]))
+			#print ("choosing {}".format(items[0]))
 			result=(withVal,valToTake+(chosenOne,))
 		else:
-			print("Not choosing {}".format(items[0]))
+			#print("Not choosing {}".format(items[0]))
 			result=(withoutVal,valNotTaken)
 	return result
 
 
+def fastMaxVal(items,avail,memo={}):
+	if((len(items),avail) in memo):
+		result=memo[(len(items),avail)]
+	elif(items==[] or avail <=0):
+		result=(0,())
+	elif(items[0].getCost() > avail):
+		result=fastMaxVal(items[1:],avail,memo)
+	else:
+		nextItem=items[0]
+		#taking the first item
+		withVal,itemsTakenFirstCase=fastMaxVal(items[1:],avail-nextItem.getCost(),memo)
+		withVal+=nextItem.getValue()
+		withoutVal,itemsTakenSecondCase=fastMaxVal(items[1:],avail)
+
+		if(withVal > withoutVal):
+			result=(withVal,itemsTakenFirstCase+(nextItem,))
+		else:
+			result=(withoutVal,itemsTakenSecondCase)
+	memo[(len(items)),avail]=result
+	return result
+
 def maxValHelper(items,constraint):
 	print('Use search tree to allocate {} calories'.format(constraint))
 	val,itemsTaken=maxVal(items,constraint)
-	print("Value {0}".format(val))
+	print("Value from search tree {0}".format(val))
+	pprint.pprint(itemsTaken)
+
+	print('Use search tree to allocate {} calories'.format(constraint))
+	val,itemsTaken=fastMaxVal(items,constraint)
+	print("Value from dynamic programming {0}".format(val))
 	pprint.pprint(itemsTaken)
 
 names = ['wine', 'beer', 'pizza', 'burger', 'fries',
