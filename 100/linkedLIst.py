@@ -12,6 +12,9 @@ class Node(object):
 	def setNext(self,nextNode):
 		self.nextNode=nextNode
 
+	def __str__(self):
+		return "data = "+ str(self.value) 
+
 
 class LinkedList(object):
 	
@@ -67,6 +70,8 @@ class LinkedList(object):
 		current=self.getHead()
 		while(current is not None):
 			res.append(str(current.getData()))
+			if current.getNext() is not None:
+				res.append("->")
 			current=current.getNext()
 		return "".join(res)
 
@@ -108,9 +113,62 @@ def addTwoNos(l1,l2):
 	print("output is {}".format(resHead))
 	return resHead
 
-def RecursiveAddTwoNos(l1,l2):
+def recursiveAddNodeHelper(curr1,curr2,currDiff,l1,l2):
 
+	if(curr1==None and curr2==None):
+		return (None,0)
+	
+	if(currDiff > 0):
+		addL,carry=recursiveAddNodeHelper(curr1.getNext(),None,currDiff-1,l1,l2)
+	elif(currDiff< 0):
+		addL,carry=recursiveAddNodeHelper(None,curr2.getNext(),currDiff+1,l1,l2)
+	else:
+		curr1Next=l1 if curr1==None else curr1.getNext()
+		curr2Next=l2 if curr2==None else curr2.getNext()
+		addL,carry=recursiveAddNodeHelper(curr1Next,curr2Next,currDiff,l1,l2)
 
+	d1=0 if curr1==None else curr1.getData()
+	d2=0 if curr2==None else curr2.getData()
+	s=(d1 + d2 +carry)%10
+	c=(d1 + d2 + carry)//10
+
+	currNode=Node(s)
+	currNode.setNext(addL)
+
+	return currNode,c
+
+def getCount(n):
+	c=0
+	while(n is not None):
+		n=n.getNext()
+		c+=1
+	return c
+
+def printList(n):
+	s=""
+	while n is not None:
+		s+=str(n.getData()) + "->"
+		n=n.getNext()
+
+	return s.strip("->")
+def recursiveAddTwoNos(l1,l2):
+
+	count1=getCount(l1)
+	count2=getCount(l2)
+	#print(l1)
+	diff=count1-count2
+
+	if(diff > 0):
+		addL,carry=recursiveAddNodeHelper(l1,None,diff-1,l1,l2)
+	elif(diff < 0):
+		addL,carry=recursiveAddNodeHelper(None,l2,diff+1,l1,l2)
+	else:
+		addL,carry=recursiveAddNodeHelper(l1,l2,diff,l1,l2)
+	if(carry ==1):
+		cNode=Node(1)
+		cNode.nextNode(addL)
+		return cNode
+	return addL
 first = LinkedList()
 second = LinkedList()
  
@@ -126,9 +184,54 @@ print("First List is  {}".format(first))
 second.insert(4)
 second.insert(8)
 print("Second List is  {}".format(second))
-
-
 print("Addition is {}".format(addTwoNos(first,second)))
+
+aFirst=LinkedList()
+aFirst.insert(7)
+aFirst.insert(5)
+aFirst.insert(9)
+aFirst.insert(4)
+aFirst.insert(6)
+
+
+sFirst=LinkedList()
+sFirst.insert(8)
+sFirst.insert(4)
+
+hFirst=aFirst.getHead()
+hSecond=sFirst.getHead()
+
+print("Actual first list is {}".format(aFirst))
+print("Actual second list is {}".format(sFirst))
+print("Addition is {}".format(printList(recursiveAddTwoNos(hFirst,hSecond))))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
